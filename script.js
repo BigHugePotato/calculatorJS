@@ -1,6 +1,6 @@
 const result = document.querySelector(".calcResult");
 const buttons = document.querySelectorAll(".button");
-const preTyped = document.querySelector(".preTyped")
+const preTyped = document.querySelector(".preTyped");
 
 buttons.forEach((button) => {
   button.addEventListener("click", handleButtonClick);
@@ -26,7 +26,7 @@ function handleNumber(number) {
   } else {
     result.textContent = currentDisplay + number;
   }
-  preTyped.textContent += number
+  preTyped.textContent += number;
 }
 
 let storedNumber = "";
@@ -37,7 +37,16 @@ function handleOperator(operator) {
   currentOperator = operator;
   result.textContent = "";
 
-  preTyped.textContent += "" + operator +  "";
+  if (isTheLastCharAnOperator(preTyped.textContent)) {
+    preTyped.textContent = preTyped.textContent.slice(0, -2) + operator + " ";
+  } else {
+    preTyped.textContent += " " + operator + " ";
+  }
+}
+
+function isTheLastCharAnOperator(text) {
+  const lastChar = text.trim().slice(-1);
+  return ["+", "-", "X", "/"].includes(lastChar);
 }
 
 function handleFunction(functionType) {
@@ -45,7 +54,7 @@ function handleFunction(functionType) {
     result.textContent = "0";
     storedNumber = "";
     currentOperator = "";
-    preTyped.textContent = "0"
+    preTyped.textContent = "";
   } else if (functionType === "equals") {
     calculateResult();
   }
@@ -71,4 +80,5 @@ function calculateResult() {
   }
 
   result.textContent = resultNumber;
+  preTyped.textContent += " = " + resultNumber;
 }
