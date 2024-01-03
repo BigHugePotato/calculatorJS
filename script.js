@@ -47,20 +47,23 @@ function handleFunction(functionType) {
 }
 
 function calculateResult() {
-    let currentNumber = result.textContent;
-    let resultNumber;
+  let currentNumber = result.textContent;
+  let resultNumber;
 
-    switch (currentOperator) {
-      case "+":
-        resultNumber = parseFloat(storedNumber) + parseFloat(currentNumber);
-      case "-":
-        resultNumber = parseFloat(storedNumber) - parseFloat(currentNumber);
-      case "/":
-        resultNumber = parseFloat(storedNumber) / parseFloat(currentNumber);
-      case "X":
-        resultNumber = parseFloat(storedNumber) * parseFloat(currentNumber);
-    }
+  switch (currentOperator) {
+    case "+":
+      resultNumber = parseFloat(storedNumber) + parseFloat(currentNumber);
+      break;
+    case "-":
+      resultNumber = parseFloat(storedNumber) - parseFloat(currentNumber);
+      break;
+    case "/":
+      resultNumber = parseFloat(storedNumber) / parseFloat(currentNumber);
+      break;
+    case "X":
+      resultNumber = parseFloat(storedNumber) * parseFloat(currentNumber);
+      break;
+  }
 
-
-    result.textContent = resultNumber;
+  result.textContent = resultNumber;
 }
