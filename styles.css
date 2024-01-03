@@ -29,23 +29,25 @@ body {
 
 .calcResult {
   background: rgba(42, 50, 113, 0.28);
-  width: 100%;
+  width: 98%;
   height: 70%;
   display: flex;
   font-size: 2rem;
   align-items: center;
   justify-content: end;
   color: #6cacc5;
+  padding-right: 2%;
 }
 
 .preTyped {
-  width: 100%;
+  width: 98%;
   height: 30%;
   color: #6cacc5;
   display: flex;
   font-size: 1rem;
   align-items: center;
   justify-content: end;
+  padding-right: 2%;
 }
 
 .calcButtons {

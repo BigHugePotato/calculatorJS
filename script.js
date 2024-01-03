@@ -7,6 +7,11 @@ buttons.forEach((button) => {
 });
 
 function handleButtonClick(event) {
+  if (isError) {
+    resetCalculator();
+    isError = false;
+    return;
+  }
   const buttonType = event.target.getAttribute("data-type");
 
   if (buttonType === "number") {
@@ -19,18 +24,23 @@ function handleButtonClick(event) {
 }
 
 function handleNumber(number) {
-  const currentDisplay = result.textContent;
-
-  if (currentDisplay === "0") {
+  if (isOperatorPressed) {
+    // Replace the operator with the number
     result.textContent = number;
+    isOperatorPressed = false; // Reset the flag
   } else {
-    result.textContent = currentDisplay + number;
+    const currentDisplay = result.textContent;
+    if (currentDisplay === "0") {
+      result.textContent = number;
+    } else {
+      result.textContent = currentDisplay + number;
+    }
   }
-  preTyped.textContent += number;
 }
 
 let storedNumber = "";
 let currentOperator = "";
+let isOperatorPressed = false;
 
 function handleOperator(operator) {
   if (currentOperator && result.textContent === "") {
@@ -39,8 +49,8 @@ function handleOperator(operator) {
   } else {
     storedNumber = result.textContent;
     currentOperator = operator;
-    result.textContent = "";
-    preTyped.textContent += " " + operator + " ";
+    result.textContent = operator;
+    isOperatorPressed = true;
   }
 }
 
@@ -57,35 +67,69 @@ function handleFunction(functionType) {
     storedNumber = "";
     currentOperator = "";
     preTyped.textContent = "";
+    calculationHistory = [];
+  } else if (functionType === "D") {
+    if (result.textContent.length > 0) {
+      result.textContent = result.textContent.slice(0, -1);
+      if (result.textContent === "") {
+        result.textContent = "0";
+      }
+    }
   } else if (functionType === "equals") {
     calculateResult();
   }
 }
 
+let calculationHistory = [];
+let isError = false;
+
 function calculateResult() {
   let currentNumber = result.textContent;
 
-  if (currentNumber === "") {
-    currentNumber = storedNumber;
+  if (!currentOperator || currentNumber === "") {
+    return;
   }
 
   let resultNumber;
+  let calculation = `${storedNumber} ${currentOperator} ${currentNumber}`;
 
-  switch (currentOperator) {
-    case "+":
-      resultNumber = parseFloat(storedNumber) + parseFloat(currentNumber);
-      break;
-    case "-":
-      resultNumber = parseFloat(storedNumber) - parseFloat(currentNumber);
-      break;
-    case "/":
-      resultNumber = parseFloat(storedNumber) / parseFloat(currentNumber);
-      break;
-    case "X":
-      resultNumber = parseFloat(storedNumber) * parseFloat(currentNumber);
-      break;
+  if (currentOperator === "/" && parseFloat(currentNumber) === 0) {
+    result.textContent = "Error: Division by 0";
+    isError = true;
+    return;
+  } else {
+    switch (currentOperator) {
+      case "+":
+        resultNumber = parseFloat(storedNumber) + parseFloat(currentNumber);
+        break;
+      case "-":
+        resultNumber = parseFloat(storedNumber) - parseFloat(currentNumber);
+        break;
+      case "/":
+        resultNumber = parseFloat(storedNumber) / parseFloat(currentNumber);
+        break;
+      case "X":
+        resultNumber = parseFloat(storedNumber) * parseFloat(currentNumber);
+        break;
+    }
   }
 
   result.textContent = resultNumber;
-  preTyped.textContent += " = " + resultNumber;
+
+  calculationHistory.push(calculation + " = " + resultNumber);
+
+  if (calculationHistory.length > 3) {
+    calculationHistory.shift();
+  }
+
+  preTyped.textContent = calculationHistory.join("\n");
+}
+
+function resetCalculator() {
+  storedNumber = "";
+  currentOperator = "";
+  result.textContent = "0";
+  preTyped.textContent = "";
+  calculationHistory = [];
+  isError = false;
 }
