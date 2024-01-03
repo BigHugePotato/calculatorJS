@@ -41,7 +41,7 @@ function handleFunction(functionType) {
     result.textContent = "Result";
     storedNumber = "";
     currentOperator = "";
-  } else if (functionType === "=") {
+  } else if (functionType === "equals") {
     calculateResult();
   }
 }
