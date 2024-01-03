@@ -19,7 +19,7 @@ function handleButtonClick(event) {
 }
 
 function handleNumber(number) {
-  currentDisplay = result.textContent;
+  const currentDisplay = result.textContent;
 
   if (currentDisplay === "0") {
     result.textContent = number;
@@ -33,20 +33,22 @@ let storedNumber = "";
 let currentOperator = "";
 
 function handleOperator(operator) {
-  storedNumber = result.textContent;
-  currentOperator = operator;
-  result.textContent = "";
-
-  if (isTheLastCharAnOperator(preTyped.textContent)) {
-    preTyped.textContent = preTyped.textContent.slice(0, -2) + operator + " ";
+  if (currentOperator && result.textContent === "") {
+    currentOperator = operator;
+    updatePreTypedOperator(operator);
   } else {
+    storedNumber = result.textContent;
+    currentOperator = operator;
+    result.textContent = "";
     preTyped.textContent += " " + operator + " ";
   }
 }
 
-function isTheLastCharAnOperator(text) {
-  const lastChar = text.trim().slice(-1);
-  return ["+", "-", "X", "/"].includes(lastChar);
+function updatePreTypedOperator(newOperator) {
+  preTyped.textContent = preTyped.textContent.replace(
+    /[\+\-\X\/] $/,
+    newOperator + " "
+  );
 }
 
 function handleFunction(functionType) {
@@ -62,6 +64,11 @@ function handleFunction(functionType) {
 
 function calculateResult() {
   let currentNumber = result.textContent;
+
+  if (currentNumber === "") {
+    currentNumber = storedNumber;
+  }
+
   let resultNumber;
 
   switch (currentOperator) {
