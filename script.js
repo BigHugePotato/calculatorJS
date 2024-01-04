@@ -53,7 +53,7 @@ function handleOperator(operator) {
 
 function updatePreTypedOperator(newOperator) {
   preTyped.textContent = preTyped.textContent.replace(
-    /[\+\-\X\/] $/,
+    /[\+\-\x\/] $/,
     newOperator + " "
   );
 }
@@ -117,7 +117,7 @@ function calculateResult() {
       case "/":
         resultNumber = parseFloat(storedNumber) / parseFloat(currentNumber);
         break;
-      case "X":
+      case "x":
         resultNumber = parseFloat(storedNumber) * parseFloat(currentNumber);
         break;
     }
