@@ -9,8 +9,6 @@ buttons.forEach((button) => {
 function handleButtonClick(event) {
   if (isError) {
     resetCalculator();
-    isError = false;
-    return;
   }
   const buttonType = event.target.getAttribute("data-type");
 
@@ -25,9 +23,8 @@ function handleButtonClick(event) {
 
 function handleNumber(number) {
   if (isOperatorPressed) {
-    // Replace the operator with the number
     result.textContent = number;
-    isOperatorPressed = false; // Reset the flag
+    isOperatorPressed = false;
   } else {
     const currentDisplay = result.textContent;
     if (currentDisplay === "0") {
@@ -62,6 +59,10 @@ function updatePreTypedOperator(newOperator) {
 }
 
 function handleFunction(functionType) {
+  if (isError) {
+    resetCalculator();
+    return;
+  }
   if (functionType === "C") {
     result.textContent = "0";
     storedNumber = "";
@@ -77,6 +78,10 @@ function handleFunction(functionType) {
     }
   } else if (functionType === "equals") {
     calculateResult();
+  } else if (functionType === "percent") {
+    calculatePercent();
+  } else if (functionType === "sqrt") {
+    calculateSqrt();
   }
 }
 
@@ -84,6 +89,10 @@ let calculationHistory = [];
 let isError = false;
 
 function calculateResult() {
+  if (isError) {
+    resetCalculator();
+    return;
+  }
   let currentNumber = result.textContent;
 
   if (!currentOperator || currentNumber === "") {
@@ -123,6 +132,23 @@ function calculateResult() {
   }
 
   preTyped.textContent = calculationHistory.join("\n");
+}
+
+function calculatePercent() {
+    let currentNumber = parseFloat(result.textContent);
+    if (!isNaN(currentNumber)) {
+        result.textContent = currentNumber / 100;
+    }
+}
+
+function calculateSqrt() {
+    let currentNumber = parseFloat(result.textContent);
+    if (!isNaN(currentNumber) && currentNumber >= 0) {
+      result.textContent = Math.sqrt(currentNumber);
+    } else {
+      result.textContent = "Error";
+      isError = true;
+    }
 }
 
 function resetCalculator() {
