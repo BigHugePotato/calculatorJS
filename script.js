@@ -10,7 +10,14 @@ function handleButtonClick(event) {
   if (isError) {
     resetCalculator();
   }
+  const buttonValue = event.target.textContent;
   const buttonType = event.target.getAttribute("data-type");
+
+  if (buttonValue === "." && !result.textContent.includes(".")) {
+    result.textContent += ".";
+    preTyped.textContent += ".";
+    return;
+  }
 
   if (buttonType === "number") {
     handleNumber(event.target.textContent);
@@ -22,15 +29,21 @@ function handleButtonClick(event) {
 }
 
 function handleNumber(number) {
+  if (number === "." && result.textContent.includes(".")) {
+    return;
+  }
   if (isOperatorPressed) {
     result.textContent = number;
+    preTyped.textContent += " " + number;
     isOperatorPressed = false;
   } else {
     const currentDisplay = result.textContent;
     if (currentDisplay === "0") {
       result.textContent = number;
+      preTyped.textContent = number;
     } else {
       result.textContent = currentDisplay + number;
+      preTyped.textContent += number;
     }
   }
 }
@@ -40,13 +53,18 @@ let currentOperator = "";
 let isOperatorPressed = false;
 
 function handleOperator(operator) {
+    if (isOperatorPressed) {
+        currentOperator = operator
+        updatePreTypedOperator();
+        return;
+    }
   if (currentOperator && result.textContent === "") {
     currentOperator = operator;
     updatePreTypedOperator(operator);
   } else {
     storedNumber = result.textContent;
     currentOperator = operator;
-    result.textContent = operator;
+    preTyped.textContent += " " + operator + " ";
     isOperatorPressed = true;
   }
 }
@@ -135,20 +153,20 @@ function calculateResult() {
 }
 
 function calculatePercent() {
-    let currentNumber = parseFloat(result.textContent);
-    if (!isNaN(currentNumber)) {
-        result.textContent = currentNumber / 100;
-    }
+  let currentNumber = parseFloat(result.textContent);
+  if (!isNaN(currentNumber)) {
+    result.textContent = currentNumber / 100;
+  }
 }
 
 function calculateSqrt() {
-    let currentNumber = parseFloat(result.textContent);
-    if (!isNaN(currentNumber) && currentNumber >= 0) {
-      result.textContent = Math.sqrt(currentNumber);
-    } else {
-      result.textContent = "Error";
-      isError = true;
-    }
+  let currentNumber = parseFloat(result.textContent);
+  if (!isNaN(currentNumber) && currentNumber >= 0) {
+    result.textContent = Math.sqrt(currentNumber);
+  } else {
+    result.textContent = "Error";
+    isError = true;
+  }
 }
 
 function resetCalculator() {
