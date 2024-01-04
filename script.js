@@ -53,11 +53,11 @@ let currentOperator = "";
 let isOperatorPressed = false;
 
 function handleOperator(operator) {
-    if (isOperatorPressed) {
-        currentOperator = operator
-        updatePreTypedOperator();
-        return;
-    }
+  if (isOperatorPressed) {
+    updatePreTypedOperator(operator);
+    currentOperator = operator;
+    return;
+  }
   if (currentOperator && result.textContent === "") {
     currentOperator = operator;
     updatePreTypedOperator(operator);
@@ -70,11 +70,16 @@ function handleOperator(operator) {
 }
 
 function updatePreTypedOperator(newOperator) {
-  preTyped.textContent = preTyped.textContent.replace(
-    /[\+\-\x\/] $/,
-    newOperator + " "
-  );
+  if (isOperatorPressed) {
+    let parts = preTyped.textContent.trim().split(" ");
+    parts[parts.length - 1] = newOperator;
+    preTyped.textContent = parts.join(" ") + " ";
+    
+  } else {
+    preTyped.textContent += newOperator + " ";
+  }
 }
+
 
 function handleFunction(functionType) {
   if (isError) {
