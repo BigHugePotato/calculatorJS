@@ -1,12 +1,12 @@
 body {
-  background-color: rgb(168, 168, 168);
+  background-color: rgb(196, 196, 196);
   display: flex;
   justify-content: center;
 }
 
 .calcBody {
   margin: 1rem;
-  width: 35rem;
+  width: 33.5rem;
   height: 38rem;
   gap: 2rem;
   background-color: #100a1c;
@@ -14,6 +14,7 @@ body {
   align-items: center;
   flex-direction: column;
   border-radius: 0.8rem;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
 }
 
 .calcDisplay {
@@ -39,6 +40,7 @@ body {
   padding: 0 2%;
   border-radius: 0.3rem;
   overflow: auto;
+  box-shadow: inset 0px 0px 5px rgba(102, 102, 102, 0.8);
 }
 
 .preTyped {
@@ -67,20 +69,72 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(42, 50, 113, 0.28);
+  background: linear-gradient(
+    to top,
+    rgba(42, 50, 113, 0.25),
+    rgba(42, 50, 113, 0.4)
+  );
   color: #6cacc5;
   font-size: 1.5rem;
   height: 4rem;
   border-radius: 0.3rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
 }
 
 .button:hover {
-  background-color: #201e40;
+  background: linear-gradient(
+    to top,
+    rgba(50, 76, 128, 0.35),
+    rgba(50, 76, 128, 0.5)
+  );
   cursor: pointer;
 }
 
 #equals {
-  background-color: #2c4149;
+  background: linear-gradient(
+    to top,
+    rgba(0, 128, 128, 0.35),
+    rgba(0, 128, 128, 0.5)
+  );
+  color: #ffffff;
 }
 
+#equals:hover {
+  background: linear-gradient(
+    to top,
+    rgba(32, 178, 170, 0.35),
+    rgba(32, 178, 170, 0.5)
+  );
+  cursor: pointer;
+}
 
+#C,
+#sqrt,
+#negate,
+#devide,
+#multiply,
+#minus,
+#plus {
+  background: linear-gradient(
+    to top,
+    rgba(72, 61, 139, 0.55),
+    rgba(72, 61, 139, 0.7)
+  );
+  color: #dcdcdc;
+}
+
+#C:hover,
+#sqrt:hover,
+#negate:hover,
+#devide:hover,
+#multiply:hover,
+#minus:hover,
+#plus:hover {
+  background: linear-gradient(
+    to top,
+    rgba(106, 90, 205, 0.45),
+    rgba(106, 90, 205, 0.6)
+  );
+  cursor: pointer;
+}
