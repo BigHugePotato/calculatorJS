@@ -38,6 +38,7 @@ body {
   color: #6cacc5;
   padding: 0 2%;
   border-radius: 0.3rem;
+  overflow: auto;
 }
 
 .preTyped {

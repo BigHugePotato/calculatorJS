@@ -108,6 +108,7 @@ function handleFunction(functionType) {
 
 let calculationHistory = [];
 let isError = false;
+// let lastNumber = ""
 
 function calculateResult() {
   if (isError) {
@@ -116,6 +117,20 @@ function calculateResult() {
   }
 
   let currentNumber = result.textContent;
+
+//   if (!currentOperator) {
+//     if (lastNumber !== "" && calculationHistory.length < 0) {
+//         currentNumber = lastNumber;
+//         let lastCalculation = calculationHistory[calculationHistory.length - 1].split(" ");
+//         storedNumber = lastCalculation[0]
+//         currentOperator = lastCalculation[1]
+//     }
+//   } else {
+//     return;
+//   }
+
+//   lastNumber = currentNumber
+
   if (!currentOperator || currentNumber === "") {
     return;
   }
