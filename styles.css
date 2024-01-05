@@ -7,8 +7,8 @@ body {
 .calcBody {
   margin: 1rem;
   width: 33.5rem;
-  height: 38rem;
-  gap: 2rem;
+  height: 37rem;
+  gap: 1.5rem;
   background-color: #100a1c;
   display: flex;
   align-items: center;
@@ -18,8 +18,8 @@ body {
 }
 
 .calcDisplay {
-  margin-top: 2.5rem;
-  width: 30rem;
+  margin-top: 2.3rem;
+  width: 90%;
   height: 10rem;
   display: flex;
   justify-content: center;
@@ -31,7 +31,7 @@ body {
 .calcResult {
   background: rgba(42, 50, 113, 0.28);
   width: 96%;
-  height: 60%;
+  height: 55%;
   display: flex;
   font-size: 2.5rem;
   align-items: center;
@@ -45,7 +45,7 @@ body {
 
 .preTyped {
   width: 96%;
-  height: 40%;
+  height: 35%;
   color: #6cacc5;
   display: flex;
   font-size: 1rem;
@@ -62,7 +62,7 @@ body {
   grid-template-rows: 1fr 1fr 1fr 1fr;
   gap: 6px;
   grid-auto-flow: row;
-  width: 30rem;
+  width: 90%;
 }
 
 .button {
