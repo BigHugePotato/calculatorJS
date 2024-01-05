@@ -8,9 +8,9 @@ body {
 
 .calcBody {
   margin: 0.5rem;
-  width: 31rem;
-  height: 33rem;
-  gap: 0.8rem;
+  width: 29rem;
+  height: 32.5rem;
+  gap: 0.9rem;
   background-color: #100a1c;
   display: flex;
   align-items: center;
@@ -33,9 +33,9 @@ body {
 .calcResult {
   background: rgba(42, 50, 113, 0.28);
   width: 96%;
-  height: 55%;
+  height: 50%;
   display: flex;
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   align-items: center;
   justify-content: end;
   color: #6cacc5;
@@ -77,8 +77,8 @@ body {
     rgba(42, 50, 113, 0.4)
   );
   color: #6cacc5;
-  font-size: 1.5rem;
-  height: 3.7rem;
+  font-size: 1.4rem;
+  height: 3.6rem;
   border-radius: 0.3rem;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
