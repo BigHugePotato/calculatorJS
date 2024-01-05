@@ -74,12 +74,10 @@ function updatePreTypedOperator(newOperator) {
     let parts = preTyped.textContent.trim().split(" ");
     parts[parts.length - 1] = newOperator;
     preTyped.textContent = parts.join(" ") + " ";
-    
   } else {
     preTyped.textContent += newOperator + " ";
   }
 }
-
 
 function handleFunction(functionType) {
   if (isError) {
@@ -101,8 +99,8 @@ function handleFunction(functionType) {
     }
   } else if (functionType === "equals") {
     calculateResult();
-  } else if (functionType === "percent") {
-    calculatePercent();
+  } else if (functionType === "negate") {
+    toggleNegate();
   } else if (functionType === "sqrt") {
     calculateSqrt();
   }
@@ -116,8 +114,8 @@ function calculateResult() {
     resetCalculator();
     return;
   }
-  let currentNumber = result.textContent;
 
+  let currentNumber = result.textContent;
   if (!currentOperator || currentNumber === "") {
     return;
   }
@@ -157,10 +155,14 @@ function calculateResult() {
   preTyped.textContent = calculationHistory.join("\n");
 }
 
-function calculatePercent() {
-  let currentNumber = parseFloat(result.textContent);
-  if (!isNaN(currentNumber)) {
-    result.textContent = currentNumber / 100;
+function toggleNegate() {
+  let currentNumber = result.textContent;
+  if (currentNumber.startsWith("-")) {
+    result.textContent = currentNumber.slice(1)
+    preTyped.textContent = currentNumber.slice(1)
+  } else {
+    result.textContent = "-" + currentNumber
+    preTyped.textContent = "-" + currentNumber
   }
 }
 
