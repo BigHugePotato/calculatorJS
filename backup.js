@@ -58,17 +58,15 @@ function handleOperator(operator) {
     currentOperator = operator;
     return;
   }
-  if (currentOperator && result.textContent !== "") {
-    calculateResult();
-    // currentOperator = operator;
-    preTyped.textContent = result.textContent + " " + " ";
+  if (currentOperator && result.textContent === "") {
+    currentOperator = operator;
     updatePreTypedOperator(operator);
-  } else if (result.textContent !== "") {
+  } else {
     storedNumber = result.textContent;
-    preTyped.textContent += " " + operator + " "; // append only for the first operator
+    currentOperator = operator;
+    preTyped.textContent += " " + operator + " ";
+    isOperatorPressed = true;
   }
-  currentOperator = operator;
-  isOperatorPressed = true;
 }
 
 function updatePreTypedOperator(newOperator) {
@@ -95,7 +93,6 @@ function handleFunction(functionType) {
   } else if (functionType === "D") {
     if (result.textContent.length > 0) {
       result.textContent = result.textContent.slice(0, -1);
-            preTyped.textContent = preTyped.textContent.slice(0, -1);
       if (result.textContent === "") {
         result.textContent = "0";
       }
@@ -146,8 +143,6 @@ function calculateResult() {
       case "x":
         resultNumber = parseFloat(storedNumber) * parseFloat(currentNumber);
         break;
-      default:
-        resultNumber = currentNumber;
     }
   }
 
@@ -159,11 +154,7 @@ function calculateResult() {
     calculationHistory.shift();
   }
 
-  preTyped.textContent = calculationHistory.join(" ");
-
-  storedNumber = resultNumber.toString();
-  currentOperator = "";
-  isOperatorPressed = false;
+  preTyped.textContent = calculationHistory.join("");
 }
 
 function toggleNegate() {
